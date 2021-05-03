@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Club Lacrosse</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+      body { font: 13px Helvetica, Arial; }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+	<script>
+	  // var socket = io();
+    var socket = io('wss://apps.clublacrosse.org', {transports: ['websocket']});
+
+    $(document).ready(function(){
+      socket.emit('sub', {message: 'Welcome to Club Lacrosse.'});
+      socket.on('hello' , function(data){
+        console.log(data);
+      });
+      socket.on('get-games' , function(data){
+        console.log("Games data: ,      " , data);
+      });
+
+      socket.on('get-tournament-games' , function(data){
+        console.log("Tournament Games: ,      " , data);
+      });
+
+      socket.on('save-stat', function(data){
+        console.log("Save Stat response: ,      " , data);
+      });
+      socket.on('room', function(data){
+        console.log("Room Notification: ,      " , data);
+      });
+      socket.on('new_event', function(data){
+        console.log("NEW EVENT RECEIVED: ,      " , data);
+      });
+    });
+	</script>
+  </head>
+  <body>
+    <h1>Welcome to Club Lacrosse Api</h1>
+  </body>
+</html>
